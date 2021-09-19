@@ -1,4 +1,4 @@
-$block = $process="acrotray","AcrobatNotificationClient","armsvc"
+$process = $process="acrotray","AcrobatNotificationClient","armsvc"
 $services="AdobeARMservice","AGMService","AGSService" 
 
 #stop processes and services
