@@ -16,3 +16,7 @@ Requirements:
 * run killacrobat.cmd as administrator if you're unfamiliar with Powershell.
 
 To restore removed functionality, repair or reinstall Adoboe Acrobat 
+
+Installation:
+* Download from the CODE menue above download zip file from here
+ https://codeload.github.com/mmcint/AdobeAcrobatAnnonyanceKiller/zip/refs/heads/main 
