@@ -1,6 +1,8 @@
 $process = $process="acrotray","AcrobatNotificationClient","armsvc"
 $services="AdobeARMservice","AGMService","AGSService" 
 
+$ErrorActionPreference="SilentlyContinue"
+
 #stop processes and services
 Get-Process $process -ErrorAction:SilentlyContinue | Stop-Process -Verbose
 Get-Service $services | Stop-Service -Verbose
@@ -33,16 +35,18 @@ $regkeys = "
 
 Remove-Item -LiteralPath $regkeys -ErrorAction:SilentlyContinue -Verbose
 
-Remove-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "*Acrobat*"
-Remove-ItemProperty -path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "Adobe*"
-Remove-ItemProperty -path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run" -Name "*Acrobat*"
-Remove-ItemProperty -path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run" -Name "Adobe*"
-Remove-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Toolbar" -Name "Adobe*"
-Remove-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Toolbar" -Name "*Acrobat*"
-Remove-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Toolbar" -Name "{47833539-D0C5-4125-9FA8-0819E2EAAC93}"
-Remove-ItemProperty -path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Internet Explorer\Toolbar" -Name "{47833539-D0C5-4125-9FA8-0819E2EAAC93}" -Verbose
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "*Acrobat*"
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "Adobe*"
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run" -Name "*Acrobat*"
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run" -Name "Adobe*"
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Toolbar" -Name "Adobe*"
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Toolbar" -Name "*Acrobat*"
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Toolbar" -Name "{47833539-D0C5-4125-9FA8-0819E2EAAC93}"
+Remove-ItemProperty -ErrorAction:SilentlyContinue -path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Internet Explorer\Toolbar" -Name "{47833539-D0C5-4125-9FA8-0819E2EAAC93}" -Verbose 
 
 Get-ScheduledTask -TaskName adobe*  | ? { $_ -match "Adobe|Acrobat" } | Disable-ScheduledTask
+
+$ErrorActionPreference="Continue"
 
 write-host -foreg yellow "`n pausing 5 seconds "
 start-sleep 5  
