@@ -1,0 +1,1 @@
+powershell -noprofile -command killacrobat.ps1
